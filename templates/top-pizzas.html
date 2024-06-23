@@ -1,0 +1,85 @@
+{% load static %} <!-- Carga las etiquetas estáticas, útil si necesitas usar recursos estáticos -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizzas Más Ordenadas</title>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Tu archivo CSS estático -->
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <style>
+        .pizza-card {
+            margin: 10px 0;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .pizza-info {
+            display: flex;
+            align-items: center;
+        }
+        .pizza-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .pizza-info strong {
+            font-size: 1.2em;
+        }
+        .mdc-typography--headline4 {
+            margin-bottom: 20px;
+            
+        }
+        
+    </style>
+</head>
+<body class="mdc-typography">
+    <h1 class="mdc-typography--headline4">Pizzas Más Ordenadas</h1>
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            {% for pizza in pizzas %}
+            <div class="mdc-layout-grid__cell">
+                <div class="pizza-card">
+                    <div class="pizza-info">
+                        <!-- Suponiendo que cada objeto pizza tiene una imagen asociada -->
+                        <img src="{% static pizza.imagen_url %}" alt="{{ pizza.flavor }}">
+                        <strong>{{ pizza.name }}</strong> - Ordenada {{ pizza.total_orders }} veces
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title mdc-typography--headline5">Cliente con Más Órdenes</span>
+            {% if top_client %}
+                <p>
+                    <i class="material-icons left">person</i>
+                    <strong>{{ top_client.name }}</strong> con 
+                    <i class="material-icons left">shopping_cart</i>
+                    {{ top_client.total_orders }} órdenes.
+                </p>
+            {% else %}
+                <p><i class="material-icons left">info_outline</i>No hay datos de clientes disponibles.</p>
+            {% endif %}
+        </div>
+        <div class="card-action">
+            <a href="{% url 'index' %}" class="waves-effect waves-light btn">
+                <i class="material-icons left">arrow_back</i>Cancelar
+            </a>
+            <a href="{% url 'order_list' %}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>Ver Pedidos
+            </a>
+        </div>
+    </div>
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

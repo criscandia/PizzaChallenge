@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pizzas</title>
+</head>
+<body>
+    <h1>Pizzas Disponibles</h1>
+    <ul>
+        {% for pizza in pizzas %}
+            <li>{{ pizza.name }} - {{ pizza.flavor }} - Añadida el {{ pizza.date_added }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
