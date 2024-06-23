@@ -113,3 +113,7 @@ def top_clients(request, template_name='app/top-clients.html'):
     clients = Client.objects.annotate(total_orders=Count('order')).order_by('-total_orders')[:5]
     dato = {'clients': clients}
     return render(request, template_name, dato)
+
+def contact(request, template_name='contact.html'):
+    """Show the contact page."""
+    return render(request, template_name)
