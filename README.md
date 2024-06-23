@@ -1,63 +1,62 @@
-# Proyecto Pizzas: Base de Datos
+# Pizza Project: Database
 
-## Descripción
-Este proyecto se centra en la creación y gestión de una base de datos para una pizzería, con el objetivo de manejar pedidos, clientes, y pizzas disponibles. Aunque inicialmente se planteó desarrollar una API, la fase actual del proyecto se ha concentrado en establecer una sólida base de datos que soporte las operaciones requeridas.
+## Description
+This project focuses on creating and managing a database for a pizzeria, aiming to handle orders, customers, and available pizzas. Although initially proposed to develop an API, the current phase of the project has concentrated on establishing a solid database to support the required operations.
 
-## Esquema de la Base de Datos
-La base de datos está diseñada para almacenar información sobre clientes, pedidos y pizzas. A continuación, se describen las tablas principales y sus relaciones:
+## Database Schema
+The database is designed to store information about customers, orders, and pizzas. Below are the main tables and their relationships:
 
-- **Clientes**: Almacena información de los clientes como ID, email y teléfono.
-- **Pedidos**: Registra los pedidos realizados, incluyendo ID del pedido, fecha, hora, y la relación con el cliente que lo realiza.
-- **Pizzas**: Contiene las pizzas disponibles, con campos para el nombre de la pizza y si está disponible o no.
-- **Detalle de Pedidos**: Una tabla de relación que vincula los pedidos con las pizzas ordenadas, incluyendo la cantidad de cada pizza.
+- **Customers**: Stores customer information such as ID, email, and phone number.
+- **Orders**: Records the orders placed, including order ID, date, time, and the relationship with the customer who places the order.
+- **Pizzas**: Contains the available pizzas, with fields for the pizza name and whether it is available or not.
+- **Order Details**: A relationship table that links orders with the ordered pizzas, including the quantity of each pizza.
 
-## Tecnologías Utilizadas
-- **SQL**: Lenguaje utilizado para la creación y gestión de la base de datos.
-- **SQLite/PostgreSQL**: Sistema de gestión de bases de datos. La elección depende del entorno de desarrollo y producción.
+## Technologies Used
+- **SQL**: Language used for the creation and management of the database.
+- **SQLite/PostgreSQL**: Database management system. The choice depends on the development and production environment.
 
-## Implementación
-La implementación inicial se ha centrado en la creación de las tablas y relaciones necesarias para soportar las operaciones básicas de la pizzería. A continuación, se proporcionan los scripts SQL para crear las tablas mencionadas.
+## Implementation
+The initial implementation has focused on creating the tables and relationships necessary to support the basic operations of the pizzeria. Below are the SQL scripts to create the mentioned tables.
 
-### Creación de Tablas
+### Table Creation
 ```sql
-CREATE TABLE Clientes (
+CREATE TABLE Customers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
-    telefono VARCHAR(20) UNIQUE NOT NULL
+    phone VARCHAR(20) UNIQUE NOT NULL
 );
 
 CREATE TABLE Pizzas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre VARCHAR(255) UNIQUE NOT NULL,
-    disponible BOOLEAN DEFAULT TRUE
+    name VARCHAR(255) UNIQUE NOT NULL,
+    available BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE Pedidos (
+CREATE TABLE Orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fechaHora DATETIME NOT NULL,
-    clienteId INTEGER,
-    FOREIGN KEY (clienteId) REFERENCES Clientes(id)
+    dateTime DATETIME NOT NULL,
+    customerId INTEGER,
+    FOREIGN KEY (customerId) REFERENCES Customers(id)
 );
 
-CREATE TABLE DetallePedidos (
-    pedidoId INTEGER,
+CREATE TABLE OrderDetails (
+    orderId INTEGER,
     pizzaId INTEGER,
-    cantidad INTEGER,
-    FOREIGN KEY (pedidoId) REFERENCES Pedidos(id),
+    quantity INTEGER,
+    FOREIGN KEY (orderId) REFERENCES Orders(id),
     FOREIGN KEY (pizzaId) REFERENCES Pizzas(id),
-    PRIMARY KEY (pedidoId, pizzaId)
+    PRIMARY KEY (orderId, pizzaId)
 );
 
-## Operaciones Básicas
-Las operaciones básicas incluyen la inserción de datos en las tablas, la actualización de la disponibilidad de las pizzas, y la consulta de los pedidos y las pizzas más vendidas.
+## Basic Operations
+Basic operations include inserting data into the tables, updating the availability of pizzas, and querying orders and the most sold pizzas.
 
-## Próximos Pasos
-El siguiente paso en el desarrollo del proyecto es la implementación de una API que permita interactuar con la base de datos de manera programática, facilitando la realización de pedidos, la gestión de clientes y la consulta de información relevante a través de endpoints específicos.
+## Next Steps
+The next step in the project development is the implementation of an API that allows interacting with the database programmatically, facilitating the placing of orders, customer management, and querying relevant information through specific endpoints.
 
-## Reflexiones Finales
-El enfoque inicial en la base de datos ha permitido establecer una fundación sólida para el proyecto. Aunque el desarrollo de la API está pendiente, la estructura actual de la base de datos está preparada para soportar las funcionalidades planeadas y futuras expansiones.
+## Final Thoughts
+The initial focus on the database has allowed establishing a solid foundation for the project. Although the development of the API is pending, the current database structure is prepared to support the planned functionalities and future expansions.
 
-## Tiempo Invertido
-El desarrollo de la base de datos y la documentación asociada ha tomado aproximadamente 9 horas, distribuidas a lo largo de un fin de semana. Este tiempo incluye la planificación, diseño del esquema de la base de datos, y la redacción de este documento.
-
+## Time Invested
+The development of the database and associated documentation has taken approximately 9 hours, spread over a weekend. This time includes planning, database schema design, and drafting this document. ```
 
